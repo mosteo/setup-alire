@@ -14,6 +14,10 @@ async function run() {
         
         if (process.platform == "darwin") {
             process.env.OS = "macOS"
+            await exec.exec("echo Configuring ENV for macOS")
+            console.log("Test log")
+        } else {
+            await exec.exec("echo Configuring ENV for Linux/Windows")
         }
         
         await exec.exec(`gprbuild -j0 -p -XSELFBUILD=False -P alr_env.gpr -cargs -fPIC`);
