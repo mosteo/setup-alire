@@ -24,6 +24,11 @@ inputs:
     required: false
     default: true
 
+outputs:
+  cache_hit:
+    description: Whether a cached installation was reused
+    value: ${{ steps.cache-alr.outputs.cache-hit }}
+
 runs:
   using: "composite"
   steps:
@@ -43,6 +48,11 @@ runs:
         # .cache contains msys64 install on Windows
         # .config contains the toolchain at the default location, besides index config
         # ./alire_install contains alr itself
+
+    - name: Check cache output
+      shell: bash
+      run: |
+        echo Cache result: ${{ steps.cache-alr.outputs.cache-hit }}
 
     # To run the old setup action which is javascript
     - name: Setup Node
